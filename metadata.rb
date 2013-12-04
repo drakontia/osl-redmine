@@ -1,6 +1,6 @@
 name             "osl-redmine"
-maintainer       "Juanje Ojeda"
-maintainer_email "juanje.ojeda@gmail.com"
+maintainer       "Geoffrey corey"
+maintainer_email "coreyg@osuosl.org"
 license          "Apache 2.0"
 description      "Install Redmine from Github"
 version          "0.1.0"
@@ -9,10 +9,14 @@ recipe "osl-redmine", "Install the Redmine application from the source"
 recipe "osl-redmine::source", "Install the Redmine application from the source"
 recipe "osl-redmine::package", "Install the Redmine application from packages"
 
-%w{ git apache2 passenger_apache2 mysql postgresql apt yum database}.each do |dep|
-  depends dep
-end
+depends          'git'
+depends          'apache2'
+depends          'passenger_apache2'
+depends          'mysql', '= 3.0.12'
+depends          'postgresql'
+depends          'yum'
+depends          'database'
 
-%w{ debian ubuntu centos redhat amazon scientific fedora suse }.each do |os|
+%w{ centos redhat amazon scientific fedora suse }.each do |os|
     supports os
 end
