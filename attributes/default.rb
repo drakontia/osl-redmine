@@ -8,10 +8,8 @@ default["redmine"]["install_method"] = "source"
 default["redmine"]["install_rmagick"] = true
 
 # databases
-default["redmine"]["databases"]["production"]["adapter"]  = 'mysql'
-default["redmine"]["databases"]["production"]["database"] = 'redmine'
-default["redmine"]["databases"]["production"]["username"] = 'redmine'
-default["redmine"]["databases"]["production"]["password"] = 'password'
+# Get database info from data bag
+default["redmine"]["id"] = 'redmine'
 
 # packages
 # packages are separated to better tracking
