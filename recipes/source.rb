@@ -19,7 +19,10 @@
 
 # Some handy vars
 environment = node['redmine']['env']
-adapter = node["redmine"]["databases"][environment]["adapter"]
+
+# Get infor from data bag
+redmine_db = data_bag_item('redmine', node['redmine']['id'])
+adapter = redmine_db['adapter']
 
 #Setup system package manager
 case node['platform']
@@ -57,6 +60,15 @@ when "postgresql"
   include_recipe "database::postgresql"
 end
 
+# Make sure the path exists
+directory redmine_db['path'] do
+  owner node['apache']['user']
+  group node['apache']['group']
+  mode "775"
+  action :create
+  recursive true
+end
+
 #Setup Apache
 include_recipe "apache2"
 apache_site "000-default" do
@@ -65,7 +77,7 @@ apache_site "000-default" do
 end
 
 web_app "redmine" do
-  docroot        ::File.join(node['redmine']['path'], 'public')
+  docroot        ::File.join("#{redmine_db['path']}/redmine", 'public')
   template       "redmine.conf.erb"
   server_name    "#{node['domain']}"
   server_aliases [ "redmine", node['hostname'] ]
@@ -101,7 +113,6 @@ else
 end
 
 # deploy the Redmine app
-redmine_db = data_bag_item('redmine', node['redmine']['id'])
 include_recipe "git"
 deploy_revision node['redmine']['deploy_to'] do
   repo     node['redmine']['repo']
@@ -164,7 +175,7 @@ deploy_revision node['redmine']['deploy_to'] do
   create_dirs_before_symlink %w{tmp public config tmp/pdf public/plugin_assets}
 
   before_restart do
-    link node['redmine']['path'] do
+    link "#{redmine_db['path']}/redmine" do
       to release_path
     end
   end
