@@ -3,12 +3,13 @@ default["redmine"]["env"]       = 'production'
 default["redmine"]["repo"]      = 'git://github.com/redmine/redmine.git'
 default["redmine"]["revision"]  = '2.2.4'
 default["redmine"]["deploy_to"] = '/opt/redmine'
-default["redmine"]["path"]      = '/var/www/redmine'
 default["redmine"]["install_method"] = "source"
 default["redmine"]["install_rmagick"] = true
 
 # databases
 # Get database info from data bag
+
+# Change the identifier to the data bag you require in node attributes
 default["redmine"]["id"] = 'redmine'
 
 # packages
