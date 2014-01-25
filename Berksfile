@@ -1,6 +1,6 @@
+cookbook 'apt'
+cookbook "yum", "< 3.0.0"
+
 site :opscode
 
 metadata
-
-cookbook 'apt'
-cookbook 'yum', '= 2.2.0'
