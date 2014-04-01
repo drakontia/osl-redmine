@@ -79,7 +79,7 @@ end
 web_app "redmine" do
   docroot        ::File.join("#{redmine_db['path']}/redmine", 'public')
   template       "redmine.conf.erb"
-  server_name    "#{node['domain']}"
+  server_name    node['domain']
   server_aliases [ "redmine", node['hostname'] ]
   rails_env      environment
 end
