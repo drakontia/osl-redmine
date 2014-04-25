@@ -11,7 +11,7 @@ recipe "osl-redmine::package", "Install the Redmine application from packages"
 
 depends          'apache2'
 depends          'apt'
-depends          'database'5
+depends          'database'
 depends          'git'
 depends          'mysql', '= 3.0.12'
 depends          'passenger_apache2'
